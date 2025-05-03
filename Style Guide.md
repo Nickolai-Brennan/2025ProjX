@@ -1,6 +1,4 @@
-# 🧬 xSTATx Brand Guide
-
-> **The Data Engine Behind the Fantasy Edge™**
+  **The Data Engine Behind the Fantasy Edge™**
 
 ---
 
