@@ -1,0 +1,140 @@
+Here is your **RRI Version Update – 2025.1** with the full formula and scoring upgrades applied. This version includes:
+
+- 🔄 **New Base Score Weighting**
+- 🚀 **+10% scaling multiplier**
+- 🎯 **Pitcher Tier Mapping to Score**
+- 📐 **Updated Role Score logic using Avg_LI**
+- 🧠 **Full formula structure with scaling notes**
+- ✅ **Ready for leaderboard export or integration**
+
+---
+
+# 📘 **RRI v2025.1 – Formula & Version Update**
+
+### 🔖 Version Name: `RRI_2025.1`
+
+**Released By:** Nick Brennan  
+**Platform:** xSTATx Analytics  
+**Release Date:** May 2025
+
+---
+
+## 🧠 **What’s New in v2025.1**
+
+### 🔼 **Updated Base Score Formula**
+```plaintext
+Base_Score = 1.10 × (
+    0.65 × Pitcher_Status_Score +
+    0.15 × Previous_Season_RRI +
+    0.25 × Pitcher_Ranker_Tier_Score
+)
+```
+
+#### 📏 Pitcher_Status_Score (65%)
+Derived from **Avg_LI (14-day rolling)** and mapped to tiers:
+
+| Avg_LI        | Score | Role Label              |
+|---------------|--------|--------------------------|
+| ≥ 1.70        | 80     | Closer / Fireman Elite  |
+| 1.50–1.69     | 75     | High-Leverage Relief    |
+| 1.30–1.49     | 70     | Setup / HL Arm          |
+| 1.10–1.29     | 60     | Mid-Relief              |
+| 0.90–1.09     | 50     | Low-Leverage Relief     |
+| < 0.90        | 35     | Mop-Up / Blowout Role   |
+
+---
+
+### 📊 **Pitcher_Ranker_Tier_Score (25%)**
+
+| Tier                        | Emoji | Range  | Score |
+|----------------------------|-------|--------|--------|
+| Tier 10 – God Tier          | 🐉     | 100+   | 100    |
+| Tier 9 – Untouchable Elite  | 🔥     | 90–99  | 95     |
+| Tier 8 – High-End Stoppers  | 💣     | 80–89  | 85     |
+| Tier 7 – Reliable HL Arms   | 🧊     | 70–79  | 75     |
+| Tier 6 – Stable Contributors| 🛠️     | 60–69  | 65     |
+| Tier 5 – Mid-Tier Relievers | ⚙️     | 50–59  | 55     |
+| Tier 4 – Inconsistent Arms  | 🧪     | 40–49  | 45     |
+| Tier 3 – Mop-Up Only        | 🧹     | 30–39  | 35     |
+| Tier 2 – Call-Up Watch      | 🔍     | 20–29  | 25     |
+| Tier 1 – Inactive / RP-Lvl  | ⚠️     | 0–19   | 15     |
+
+---
+
+### 📆 **Previous_Season_RRI (15%)**
+Use last year’s RRI value as stabilizer for long-term consistency (range: 0–100).
+
+---
+
+## 🔧 **Complete RRI Formula**
+
+```python
+RRI = (
+    0.25 × Previous_Season_RRI +
+    0.50 × RRI_Current_Season_Score +
+    0.25 × RRI_Non_Playing_Score
+)
+```
+
+---
+
+## 📚 RRI_Current_Season_Score Breakdown (50%)
+
+| Category                  | Weight | Metrics Used |
+|---------------------------|--------|--------------|
+| **Performance Metrics**   | 30%    | ERA, xFIP, K/BB, BB%, WHIP, BABIP |
+| **Leverage & Usage**      | 20%    | aLI, pLI, gmLI, Clutch, IR% |
+| **Saves and Holds**       | 15%    | SVH%, Opps, IR Control |
+| **Stuff & Quality**       | 15%    | Stuff+, Location+, CSW%, wPitchValue |
+| **Batted Ball Metrics**   | 10%    | CSW%, Soft%, HardHit% |
+| **Clutch + IR Control**   | 10%    | Clutch %, IR % scored |
+
+---
+
+## 🧬 RRI_Non_Playing_Score Breakdown (25%)
+
+| Category                  | Weight |
+|---------------------------|--------|
+| Prospect Status           | 5%     |
+| Injury History            | 5%     |
+| Team Contention Bonus     | 5%     |
+| Trade Rumors (June–July)  | 1%     |
+| Role Type                 | 5%     |
+| Age Scale Modifier        | 4%     |
+
+---
+
+## ✅ Output Example (v2025.1 Scaled)
+
+| Pitcher             | Status Score | Prev RRI | Rank Tier | Raw Base | Boosted Base Score |
+|---------------------|--------------|----------|-----------|----------|--------------------|
+| Robert Suarez (2025)| 75           | 68       | Tier 9 🔥  | 82.7     | **90.97**          |
+| Emmanuel Clase (2025)| 70           | 81       | Tier 8 💣  | 78.9     | **86.79**          |
+| Yennier Cano (2025) | 70           | 75       | Tier 7 🧊  | 75.5     | **83.05**          |
+| Mariano Rivera (2008)| 80           | 95       | Tier 10 🐉 | 89.75    | **98.73**          |
+| Zach Britton (2016) | 80           | 92       | Tier 9 🔥  | 87.35    | **96.08**          |
+| Jesse Chavez (2022) | 65           | 68       | Tier 6 🛠️  | 64.9     | **71.39**          |
+
+---
+
+## 🔗 Integration Notes
+
+- Output fields:
+  - `Base_Score_Raw`
+  - `Base_Score_Boosted`
+  - `Pitcher_Ranker_Tier`
+  - `Role_Tier_Label`
+- Final RRI can be recalculated using updated base + real-time Current Season metrics
+- ✅ Add these fields to **xSTATx_RRI_Final_2025** master sheet
+- Embed into WordPress RRI Leaderboard table under “RRI Base Score” column
+
+---
+
+Would you like this published in:
+
+- 📄 **Markdown (.md) README format**
+- 🧾 **CSV with mock reliever scores**
+- 🧩 **JSON format for API**
+- 🖥️ **WordPress HTML block with style enhancements**
+
+Just say the word and I’ll prep your preferred format.
